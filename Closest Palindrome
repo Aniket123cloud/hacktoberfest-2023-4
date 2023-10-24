@@ -1,0 +1,44 @@
+Given a number num, our task is to find the closest Palindrome number whose absolute difference with given number is minimum. If 2 Palindome numbers have same absolute difference from the given number, then find the smaller one.
+ 
+
+Example 1:
+
+Input: num = 9
+Output: 9
+Explanation: 9 itself is a palindrome
+number.
+
+def is_palindrome(s):
+    return s == s[::-1]
+
+def closest_palindrome(num):
+    if num < 0:
+        return 0  # Handle negative numbers by returning 0.
+
+    num_str = str(num)
+
+    # Check if the given number is already a palindrome.
+    if is_palindrome(num_str):
+        return num
+
+    n = len(num_str)
+
+    # Check two possible candidates: smaller and larger palindromes.
+    smaller_candidate = int(str(num - 1))
+    larger_candidate = int(str(num + 1))
+
+    # Calculate the absolute differences from the given number.
+    diff_smaller = abs(num - smaller_candidate)
+    diff_larger = abs(larger_candidate - num)
+
+    # If both candidates have the same absolute difference, choose the smaller one.
+    if diff_smaller == diff_larger:
+        return smaller_candidate if smaller_candidate < num else larger_candidate
+
+    # Return the candidate with the smaller absolute difference.
+    return smaller_candidate if diff_smaller < diff_larger else larger_candidate
+
+# Example usage:
+num = 9
+result = closest_palindrome(num)
+print(result)  # Output: 9
